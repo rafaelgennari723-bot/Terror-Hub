@@ -4,6 +4,7 @@ print("💀 Starting TERROR NOTURNO HUB - anti-bug version + Aimbot + ESP")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
 local Workspace = game:GetService("Workspace")
 
 local player = Players.LocalPlayer
@@ -12,39 +13,39 @@ local Cam = Workspace.CurrentCamera
 print("💀 Services OK")
 
 -- =============================================
--- GUI WITH TABS + MINIMIZE SYSTEM
+-- GUI WITH TABS
 -- =============================================
 local sg = Instance.new("ScreenGui")
 sg.Name = "TerrorHubAntiBug"
 sg.ResetOnSpawn = false
 sg.Parent = player:WaitForChild("PlayerGui")
+print("💀 ScreenGui created")
 
--- ==================== FRAME PRINCIPAL (GRANDE) ====================
-local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 260, 0, 620)
-mainFrame.Position = UDim2.new(0.01, 0, 0.05, 0)
-mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-mainFrame.BorderSizePixel = 0
-mainFrame.Active = true
-mainFrame.Draggable = true
-mainFrame.Visible = true
-mainFrame.Parent = sg
+-- ==================== FRAME PRINCIPAL ====================
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 260, 0, 620)
+frame.Position = UDim2.new(0.01, 0, 0.05, 0)
+frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+frame.Parent = sg
 
 local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0, 14)
-corner.Parent = mainFrame
+corner.Parent = frame
 
 local stroke = Instance.new("UIStroke")
 stroke.Color = Color3.fromRGB(200, 0, 0)
 stroke.Thickness = 2.5
-stroke.Parent = mainFrame
+stroke.Parent = frame
 
--- ==================== BOTÃO DE MINIMIZAR (CAIXINHA PEQUENA) ====================
+-- ==================== BOTÃO MINIMIZAR (MENOR + ANIMAÇÃO) ====================
 local miniButton = Instance.new("TextButton")
-miniButton.Size = UDim2.new(0, 55, 0, 55)
-miniButton.Position = UDim2.new(1, -70, 0, 20)
+miniButton.Size = UDim2.new(0, 42, 0, 42)
+miniButton.Position = UDim2.new(1, -55, 0, 15)
 miniButton.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
-miniButton.Text = "💀"
+miniButton.Text = "☰"
 miniButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 miniButton.TextScaled = true
 miniButton.Font = Enum.Font.GothamBold
@@ -53,18 +54,32 @@ miniButton.Active = true
 miniButton.Draggable = true
 
 local miniCorner = Instance.new("UICorner")
-miniCorner.CornerRadius = UDim.new(0, 16)
+miniCorner.CornerRadius = UDim.new(0, 12)
 miniCorner.Parent = miniButton
 
 local miniStroke = Instance.new("UIStroke")
-miniStroke.Color = Color3.fromRGB(255, 50, 50)
-miniStroke.Thickness = 3
+miniStroke.Color = Color3.fromRGB(255, 80, 80)
+miniStroke.Thickness = 2.5
 miniStroke.Parent = miniButton
 
--- Função para abrir/fechar
+local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+
 local function toggleMenu()
-    mainFrame.Visible = not mainFrame.Visible
-    miniButton.Text = mainFrame.Visible and "💀" or "📂"
+    if frame.Visible then
+        -- Fechar
+        local closeTween = TweenService:Create(frame, tweenInfo, {Position = UDim2.new(-0.3, 0, 0.05, 0)})
+        closeTween:Play()
+        task.wait(0.25)
+        frame.Visible = false
+        miniButton.Text = "☰"
+    else
+        -- Abrir
+        frame.Position = UDim2.new(-0.3, 0, 0.05, 0)
+        frame.Visible = true
+        local openTween = TweenService:Create(frame, tweenInfo, {Position = UDim2.new(0.01, 0, 0.05, 0)})
+        openTween:Play()
+        miniButton.Text = "✕"
+    end
 end
 
 miniButton.MouseButton1Click:Connect(toggleMenu)
@@ -77,7 +92,7 @@ title.Text = "GOD MODE + SPEED + JUMP + NOCLIP + FLY + AIMBOT + ESP"
 title.TextColor3 = Color3.fromRGB(220, 0, 0)
 title.TextScaled = true
 title.Font = Enum.Font.GothamBlack
-title.Parent = mainFrame
+title.Parent = frame
 
 -- Tab buttons
 local mainTabBtn = Instance.new("TextButton")
@@ -87,7 +102,7 @@ mainTabBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 0)
 mainTabBtn.Text = "MAIN"
 mainTabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 mainTabBtn.Font = Enum.Font.GothamBold
-mainTabBtn.Parent = mainFrame
+mainTabBtn.Parent = frame
 
 local espTabBtn = Instance.new("TextButton")
 espTabBtn.Size = UDim2.new(0.5, -2, 0, 30)
@@ -96,14 +111,14 @@ espTabBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 espTabBtn.Text = "ESP"
 espTabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 espTabBtn.Font = Enum.Font.GothamBold
-espTabBtn.Parent = mainFrame
+espTabBtn.Parent = frame
 
 -- Main Content
 local mainContent = Instance.new("Frame")
 mainContent.Size = UDim2.new(1, 0, 1, -80)
 mainContent.Position = UDim2.new(0, 0, 0, 75)
 mainContent.BackgroundTransparency = 1
-mainContent.Parent = mainFrame
+mainContent.Parent = frame
 mainContent.Visible = true
 
 -- ESP Content
@@ -111,7 +126,7 @@ local espContent = Instance.new("Frame")
 espContent.Size = UDim2.new(1, 0, 1, -80)
 espContent.Position = UDim2.new(0, 0, 0, 75)
 espContent.BackgroundTransparency = 1
-espContent.Parent = mainFrame
+espContent.Parent = frame
 espContent.Visible = false
 
 -- Switch tab function
@@ -128,14 +143,12 @@ local function switchTab(tab)
         espTabBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 0)
     end
 end
-
 mainTabBtn.MouseButton1Click:Connect(function() switchTab("main") end)
 espTabBtn.MouseButton1Click:Connect(function() switchTab("esp") end)
 
 -- =============================================
--- MAIN HUB BUTTONS (Todo o resto do seu código original)
+-- MAIN HUB BUTTONS (Todo o resto original)
 -- =============================================
--- Shield Button
 local shieldBtn = Instance.new("TextButton")
 shieldBtn.Size = UDim2.new(1, -20, 0, 38)
 shieldBtn.Position = UDim2.new(0, 10, 0, 10)
@@ -146,7 +159,6 @@ shieldBtn.TextScaled = true
 shieldBtn.Font = Enum.Font.GothamBold
 shieldBtn.Parent = mainContent
 
--- Speed controls
 local plusBtn = Instance.new("TextButton")
 plusBtn.Size = UDim2.new(0, 45, 0, 38)
 plusBtn.Position = UDim2.new(0, 10, 0, 60)
@@ -177,7 +189,6 @@ minusBtn.TextScaled = true
 minusBtn.Font = Enum.Font.GothamBold
 minusBtn.Parent = mainContent
 
--- Jump
 local jumpBtn = Instance.new("TextButton")
 jumpBtn.Size = UDim2.new(1, -20, 0, 38)
 jumpBtn.Position = UDim2.new(0, 10, 0, 110)
@@ -188,7 +199,6 @@ jumpBtn.TextScaled = true
 jumpBtn.Font = Enum.Font.GothamBold
 jumpBtn.Parent = mainContent
 
--- Noclip
 local noclipBtn = Instance.new("TextButton")
 noclipBtn.Size = UDim2.new(1, -20, 0, 38)
 noclipBtn.Position = UDim2.new(0, 10, 0, 160)
@@ -199,7 +209,6 @@ noclipBtn.TextScaled = true
 noclipBtn.Font = Enum.Font.GothamBold
 noclipBtn.Parent = mainContent
 
--- Fly
 local flyBtn = Instance.new("TextButton")
 flyBtn.Size = UDim2.new(1, -20, 0, 38)
 flyBtn.Position = UDim2.new(0, 10, 0, 210)
@@ -210,7 +219,6 @@ flyBtn.TextScaled = true
 flyBtn.Font = Enum.Font.GothamBold
 flyBtn.Parent = mainContent
 
--- Aimbot
 local aimbotBtn = Instance.new("TextButton")
 aimbotBtn.Size = UDim2.new(1, -20, 0, 38)
 aimbotBtn.Position = UDim2.new(0, 10, 0, 260)
@@ -221,7 +229,6 @@ aimbotBtn.TextScaled = true
 aimbotBtn.Font = Enum.Font.GothamBold
 aimbotBtn.Parent = mainContent
 
--- FOV controls
 local fovPlus = Instance.new("TextButton")
 fovPlus.Size = UDim2.new(0, 45, 0, 38)
 fovPlus.Position = UDim2.new(0, 10, 0, 310)
@@ -253,7 +260,7 @@ fovMinus.Font = Enum.Font.GothamBold
 fovMinus.Parent = mainContent
 
 -- =============================================
--- VARIÁVEIS E FUNÇÕES (Todo o resto)
+-- VARIABLES
 -- =============================================
 local shieldOn = false
 local infJumpOn = false
@@ -275,7 +282,9 @@ FOVring.Radius = fov
 FOVring.Position = Cam.ViewportSize / 2
 FOVring.Transparency = 1
 
--- Funções (todas mantidas iguais)
+-- =============================================
+-- FUNCTIONS
+-- =============================================
 local function toggleShield()
     shieldOn = not shieldOn
     shieldBtn.Text = shieldOn and "SHIELD ON" or "SHIELD OFF"
@@ -369,7 +378,7 @@ local function lookAt(targetPos)
 end
 
 -- =============================================
--- CONEXÕES
+-- CONNECTIONS
 -- =============================================
 task.spawn(function()
     shieldBtn.MouseButton1Click:Connect(toggleShield)
@@ -377,7 +386,7 @@ task.spawn(function()
     noclipBtn.MouseButton1Click:Connect(toggleNoclip)
     flyBtn.MouseButton1Click:Connect(toggleFly)
     aimbotBtn.MouseButton1Click:Connect(toggleAimbot)
-    
+
     fovPlus.MouseButton1Click:Connect(function()
         fov = fov + 5
         fovLabel.Text = "FOV: " .. fov
@@ -403,11 +412,10 @@ task.spawn(function()
         elseif input.KeyCode == Enum.KeyCode.F then toggleFly()
         elseif input.KeyCode == Enum.KeyCode.K then toggleAimbot()
         elseif input.KeyCode == Enum.KeyCode.H then
-            toggleMenu()  -- Agora usa o sistema de minimizar
+            toggleMenu()
         end
     end)
 
-    -- (O resto das conexões do seu script original continuam iguais)
     player.CharacterAdded:Connect(function(newChar)
         task.wait(0.5)
         local hum = newChar:WaitForChild("Humanoid")
@@ -497,10 +505,10 @@ task.spawn(function()
 end)
 
 print("💀 TERROR NOTURNO HUB + Aimbot loaded!")
-print("💀 Keys: G=Shield | J=Jump | N=Noclip | F=Fly | K=Aimbot | H=Minimizar")
+print("💀 Keys: G=Shield | J=Jump | N=Noclip | F=Fly | K=Aimbot | H=Menu")
 
 -- =============================================
--- ESP - SECOND TAB (Mantido completo)
+-- ESP - SECOND TAB
 -- =============================================
 local espEnabled = false
 local espDrawings = {}
@@ -551,10 +559,9 @@ espBtn.MouseButton1Click:Connect(function()
     espBtn.BackgroundColor3 = espEnabled and Color3.fromRGB(0, 120, 0) or Color3.fromRGB(90, 0, 0)
 end)
 
--- ESP logic (mantido igual)
 local function createESP(plr)
     if plr == player then return end
-    -- ... (todo o código de createESP, removeESP e RenderStepped do ESP)
+   
     local box = Drawing.new("Square")
     box.Thickness = 1.5
     box.Filled = false
@@ -688,4 +695,4 @@ RunService.RenderStepped:Connect(function()
 end)
 
 print("💀 ESP loaded in secondary tab!")
-print("💀 Menu minimizável adicionado! Use H ou clique na caveira.")
+print("💀 Caixinha menor + Animação + Ícone diferente adicionados!")
