@@ -1,45 +1,73 @@
--- ❤️ TERROR NOTURNO HUB - ANTI-BUG VERSION + ESP WITH TABS 💀
--- God Mode + Speed + Jump + Noclip + Fly + Aimbot + ESP
-
+-- ❤️ TERROR NOTURNO HUB - ANTI-BUG VERSION + ESP WITH TABS + MINIMIZABLE 💀
 print("💀 Starting TERROR NOTURNO HUB - anti-bug version + Aimbot + ESP")
 
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
+
 local player = Players.LocalPlayer
 local Cam = Workspace.CurrentCamera
 
 print("💀 Services OK")
 
 -- =============================================
--- GUI WITH TABS
+-- GUI WITH TABS + MINIMIZE SYSTEM
 -- =============================================
-
 local sg = Instance.new("ScreenGui")
 sg.Name = "TerrorHubAntiBug"
 sg.ResetOnSpawn = false
 sg.Parent = player:WaitForChild("PlayerGui")
 
-print("💀 ScreenGui created")
-
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 260, 0, 620)  -- aumentei um pouco pra caber o shield
-frame.Position = UDim2.new(0.01, 0, 0.05, 0)
-frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-frame.BorderSizePixel = 0
-frame.Active = true
-frame.Draggable = true
-frame.Parent = sg
+-- ==================== FRAME PRINCIPAL (GRANDE) ====================
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 260, 0, 620)
+mainFrame.Position = UDim2.new(0.01, 0, 0.05, 0)
+mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Visible = true
+mainFrame.Parent = sg
 
 local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0, 14)
-corner.Parent = frame
+corner.Parent = mainFrame
 
 local stroke = Instance.new("UIStroke")
 stroke.Color = Color3.fromRGB(200, 0, 0)
 stroke.Thickness = 2.5
-stroke.Parent = frame
+stroke.Parent = mainFrame
+
+-- ==================== BOTÃO DE MINIMIZAR (CAIXINHA PEQUENA) ====================
+local miniButton = Instance.new("TextButton")
+miniButton.Size = UDim2.new(0, 55, 0, 55)
+miniButton.Position = UDim2.new(1, -70, 0, 20)
+miniButton.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
+miniButton.Text = "💀"
+miniButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+miniButton.TextScaled = true
+miniButton.Font = Enum.Font.GothamBold
+miniButton.Parent = sg
+miniButton.Active = true
+miniButton.Draggable = true
+
+local miniCorner = Instance.new("UICorner")
+miniCorner.CornerRadius = UDim.new(0, 16)
+miniCorner.Parent = miniButton
+
+local miniStroke = Instance.new("UIStroke")
+miniStroke.Color = Color3.fromRGB(255, 50, 50)
+miniStroke.Thickness = 3
+miniStroke.Parent = miniButton
+
+-- Função para abrir/fechar
+local function toggleMenu()
+    mainFrame.Visible = not mainFrame.Visible
+    miniButton.Text = mainFrame.Visible and "💀" or "📂"
+end
+
+miniButton.MouseButton1Click:Connect(toggleMenu)
 
 -- Title
 local title = Instance.new("TextLabel")
@@ -49,7 +77,7 @@ title.Text = "GOD MODE + SPEED + JUMP + NOCLIP + FLY + AIMBOT + ESP"
 title.TextColor3 = Color3.fromRGB(220, 0, 0)
 title.TextScaled = true
 title.Font = Enum.Font.GothamBlack
-title.Parent = frame
+title.Parent = mainFrame
 
 -- Tab buttons
 local mainTabBtn = Instance.new("TextButton")
@@ -59,7 +87,7 @@ mainTabBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 0)
 mainTabBtn.Text = "MAIN"
 mainTabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 mainTabBtn.Font = Enum.Font.GothamBold
-mainTabBtn.Parent = frame
+mainTabBtn.Parent = mainFrame
 
 local espTabBtn = Instance.new("TextButton")
 espTabBtn.Size = UDim2.new(0.5, -2, 0, 30)
@@ -68,14 +96,14 @@ espTabBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 espTabBtn.Text = "ESP"
 espTabBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 espTabBtn.Font = Enum.Font.GothamBold
-espTabBtn.Parent = frame
+espTabBtn.Parent = mainFrame
 
 -- Main Content
 local mainContent = Instance.new("Frame")
 mainContent.Size = UDim2.new(1, 0, 1, -80)
 mainContent.Position = UDim2.new(0, 0, 0, 75)
 mainContent.BackgroundTransparency = 1
-mainContent.Parent = frame
+mainContent.Parent = mainFrame
 mainContent.Visible = true
 
 -- ESP Content
@@ -83,7 +111,7 @@ local espContent = Instance.new("Frame")
 espContent.Size = UDim2.new(1, 0, 1, -80)
 espContent.Position = UDim2.new(0, 0, 0, 75)
 espContent.BackgroundTransparency = 1
-espContent.Parent = frame
+espContent.Parent = mainFrame
 espContent.Visible = false
 
 -- Switch tab function
@@ -105,9 +133,8 @@ mainTabBtn.MouseButton1Click:Connect(function() switchTab("main") end)
 espTabBtn.MouseButton1Click:Connect(function() switchTab("esp") end)
 
 -- =============================================
--- MAIN HUB BUTTONS
+-- MAIN HUB BUTTONS (Todo o resto do seu código original)
 -- =============================================
-
 -- Shield Button
 local shieldBtn = Instance.new("TextButton")
 shieldBtn.Size = UDim2.new(1, -20, 0, 38)
@@ -226,9 +253,8 @@ fovMinus.Font = Enum.Font.GothamBold
 fovMinus.Parent = mainContent
 
 -- =============================================
--- VARIABLES
+-- VARIÁVEIS E FUNÇÕES (Todo o resto)
 -- =============================================
-
 local shieldOn = false
 local infJumpOn = false
 local noclipOn = false
@@ -237,9 +263,9 @@ local aimbotOn = false
 local forceField
 local currentSpeed = 16
 local bodyVelocity, bodyGyro
-
 local fov = 40
 local maxTransparency = 0.1
+
 local FOVring = Drawing.new("Circle")
 FOVring.Visible = false
 FOVring.Thickness = 2
@@ -249,15 +275,12 @@ FOVring.Radius = fov
 FOVring.Position = Cam.ViewportSize / 2
 FOVring.Transparency = 1
 
--- =============================================
--- FUNCTIONS
--- =============================================
-
+-- Funções (todas mantidas iguais)
 local function toggleShield()
     shieldOn = not shieldOn
     shieldBtn.Text = shieldOn and "SHIELD ON" or "SHIELD OFF"
     shieldBtn.BackgroundColor3 = shieldOn and Color3.fromRGB(0, 120, 0) or Color3.fromRGB(90, 0, 0)
-    
+   
     local char = player.Character
     if char then
         if shieldOn then
@@ -285,17 +308,17 @@ local function toggleFly()
     flyOn = not flyOn
     flyBtn.Text = flyOn and "FLY ON" or "FLY OFF"
     flyBtn.BackgroundColor3 = flyOn and Color3.fromRGB(0, 120, 0) or Color3.fromRGB(90, 0, 0)
-    
+   
     local char = player.Character
     local root = char and char:FindFirstChild("HumanoidRootPart")
     if not root then return end
-    
+   
     if flyOn then
         bodyVelocity = Instance.new("BodyVelocity")
         bodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
         bodyVelocity.Velocity = Vector3.new(0, 0, 0)
         bodyVelocity.Parent = root
-        
+       
         bodyGyro = Instance.new("BodyGyro")
         bodyGyro.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
         bodyGyro.CFrame = root.CFrame
@@ -322,7 +345,7 @@ local function getClosestPlayerInFOV(targetPart)
     local closest = nil
     local last = math.huge
     local center = Cam.ViewportSize / 2
-    
+   
     for _, plr in ipairs(Players:GetPlayers()) do
         if plr ~= player and plr.Character then
             local part = plr.Character:FindFirstChild(targetPart)
@@ -345,38 +368,28 @@ local function lookAt(targetPos)
     Cam.CFrame = newCFrame
 end
 
-local function calculateTransparency(distance)
-    local maxDist = fov
-    local t = (1 - (distance / maxDist)) * maxTransparency
-    return math.clamp(t, 0, maxTransparency)
-end
-
 -- =============================================
--- CONNECTIONS
+-- CONEXÕES
 -- =============================================
-
 task.spawn(function()
     shieldBtn.MouseButton1Click:Connect(toggleShield)
     jumpBtn.MouseButton1Click:Connect(toggleInfJump)
     noclipBtn.MouseButton1Click:Connect(toggleNoclip)
     flyBtn.MouseButton1Click:Connect(toggleFly)
     aimbotBtn.MouseButton1Click:Connect(toggleAimbot)
-
+    
     fovPlus.MouseButton1Click:Connect(function()
         fov = fov + 5
         fovLabel.Text = "FOV: " .. fov
     end)
-
     fovMinus.MouseButton1Click:Connect(function()
         fov = math.max(10, fov - 5)
         fovLabel.Text = "FOV: " .. fov
     end)
-
     plusBtn.MouseButton1Click:Connect(function()
         currentSpeed = currentSpeed + 10
         speedLabel.Text = "Speed: " .. currentSpeed
     end)
-
     minusBtn.MouseButton1Click:Connect(function()
         currentSpeed = math.max(16, currentSpeed - 10)
         speedLabel.Text = "Speed: " .. currentSpeed
@@ -390,23 +403,24 @@ task.spawn(function()
         elseif input.KeyCode == Enum.KeyCode.F then toggleFly()
         elseif input.KeyCode == Enum.KeyCode.K then toggleAimbot()
         elseif input.KeyCode == Enum.KeyCode.H then
-            sg.Enabled = not sg.Enabled
+            toggleMenu()  -- Agora usa o sistema de minimizar
         end
     end)
 
+    -- (O resto das conexões do seu script original continuam iguais)
     player.CharacterAdded:Connect(function(newChar)
         task.wait(0.5)
         local hum = newChar:WaitForChild("Humanoid")
         hum.WalkSpeed = currentSpeed
-        
+       
         if shieldOn then
             forceField = Instance.new("ForceField")
             forceField.Parent = newChar
         end
-        
+       
         if flyOn then
             toggleFly()
-            toggleFly() -- re-apply
+            toggleFly()
         end
     end)
 
@@ -444,7 +458,7 @@ task.spawn(function()
         local char = player.Character
         local root = char and char:FindFirstChild("HumanoidRootPart")
         if not root then return end
-        
+       
         local moveDir = Vector3.new()
         if UserInputService:IsKeyDown(Enum.KeyCode.W) then moveDir += Cam.CFrame.LookVector end
         if UserInputService:IsKeyDown(Enum.KeyCode.S) then moveDir -= Cam.CFrame.LookVector end
@@ -452,12 +466,12 @@ task.spawn(function()
         if UserInputService:IsKeyDown(Enum.KeyCode.D) then moveDir += Cam.CFrame.RightVector end
         if UserInputService:IsKeyDown(Enum.KeyCode.Space) then moveDir += Vector3.new(0, 1, 0) end
         if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then moveDir -= Vector3.new(0, 1, 0) end
-        
+       
         if moveDir.Magnitude > 0 then
             moveDir = moveDir.Unit
             root.CFrame = root.CFrame + (moveDir * (currentSpeed * 1.5) * dt)
         end
-        
+       
         root.CFrame = CFrame.new(root.Position) * Cam.CFrame.Rotation
     end)
 
@@ -467,13 +481,13 @@ task.spawn(function()
             FOVring.Transparency = 0
             return
         end
-        
+       
         local closest = getClosestPlayerInFOV("Head")
         if closest and closest.Character and closest.Character:FindFirstChild("Head") then
             lookAt(closest.Character.Head.Position)
             local screenPos, onScreen = Cam:WorldToViewportPoint(closest.Character.Head.Position)
             local dist = (Vector2.new(screenPos.X, screenPos.Y) - (Cam.ViewportSize / 2)).Magnitude
-            FOVring.Transparency = calculateTransparency(dist)
+            FOVring.Transparency = (1 - (dist / fov)) * maxTransparency
         else
             FOVring.Transparency = 0.1
         end
@@ -483,22 +497,19 @@ task.spawn(function()
 end)
 
 print("💀 TERROR NOTURNO HUB + Aimbot loaded!")
-print("💀 Keys: G=Shield | J=Jump | N=Noclip | F=Fly | K=Aimbot | H=Menu")
+print("💀 Keys: G=Shield | J=Jump | N=Noclip | F=Fly | K=Aimbot | H=Minimizar")
 
 -- =============================================
--- ESP - SECOND TAB
+-- ESP - SECOND TAB (Mantido completo)
 -- =============================================
-
 local espEnabled = false
 local espDrawings = {}
-
 local options = {
-    {name = "Names",     var = "showNames",    default = true},
-    {name = "Distance",  var = "showDistance", default = true},
-    {name = "Boxes",     var = "showBoxes",    default = true},
-    {name = "Tracers",   var = "showTracers",  default = true},
+    {name = "Names", var = "showNames", default = true},
+    {name = "Distance", var = "showDistance", default = true},
+    {name = "Boxes", var = "showBoxes", default = true},
+    {name = "Tracers", var = "showTracers", default = true},
 }
-
 local toggles = {}
 local yOffset = 10
 
@@ -512,15 +523,15 @@ for i, opt in ipairs(options) do
     btn.TextScaled = true
     btn.Font = Enum.Font.GothamBold
     btn.Parent = espContent
-    
+   
     toggles[opt.var] = {button = btn, value = opt.default}
-    
+   
     btn.MouseButton1Click:Connect(function()
         toggles[opt.var].value = not toggles[opt.var].value
         btn.BackgroundColor3 = toggles[opt.var].value and Color3.fromRGB(0, 120, 0) or Color3.fromRGB(90, 0, 0)
         btn.Text = opt.name .. ": " .. (toggles[opt.var].value and "ON" or "OFF")
     end)
-    
+   
     yOffset = yOffset + 45
 end
 
@@ -540,23 +551,23 @@ espBtn.MouseButton1Click:Connect(function()
     espBtn.BackgroundColor3 = espEnabled and Color3.fromRGB(0, 120, 0) or Color3.fromRGB(90, 0, 0)
 end)
 
--- ESP logic
+-- ESP logic (mantido igual)
 local function createESP(plr)
     if plr == player then return end
-    
+    -- ... (todo o código de createESP, removeESP e RenderStepped do ESP)
     local box = Drawing.new("Square")
     box.Thickness = 1.5
     box.Filled = false
     box.Color = Color3.fromRGB(255, 80, 80)
     box.Transparency = 0.9
     box.Visible = false
-    
+   
     local tracer = Drawing.new("Line")
     tracer.Thickness = 1.2
     tracer.Color = Color3.fromRGB(255, 80, 80)
     tracer.Transparency = 0.8
     tracer.Visible = false
-    
+   
     local nameText = Drawing.new("Text")
     nameText.Size = 15
     nameText.Center = true
@@ -564,7 +575,7 @@ local function createESP(plr)
     nameText.Color = Color3.fromRGB(255, 255, 255)
     nameText.Font = 2
     nameText.Visible = false
-    
+   
     local distText = Drawing.new("Text")
     distText.Size = 13
     distText.Center = true
@@ -572,7 +583,7 @@ local function createESP(plr)
     distText.Color = Color3.fromRGB(200, 200, 255)
     distText.Font = 2
     distText.Visible = false
-    
+   
     espDrawings[plr] = {
         box = box,
         tracer = tracer,
@@ -593,7 +604,6 @@ end
 for _, plr in ipairs(Players:GetPlayers()) do
     createESP(plr)
 end
-
 Players.PlayerAdded:Connect(createESP)
 Players.PlayerRemoving:Connect(removeESP)
 
@@ -607,22 +617,22 @@ RunService.RenderStepped:Connect(function()
         end
         return
     end
-    
+   
     for plr, data in pairs(espDrawings) do
         if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") and plr.Character:FindFirstChild("Head") then
             local hrp = plr.Character.HumanoidRootPart
             local head = plr.Character.Head
             local humanoid = plr.Character:FindFirstChild("Humanoid")
-            
+           
             if humanoid and humanoid.Health > 0 then
                 local rootPos, onScreen = Cam:WorldToViewportPoint(hrp.Position)
                 local headPos = Cam:WorldToViewportPoint(head.Position + Vector3.new(0, 0.5, 0))
                 local legPos = Cam:WorldToViewportPoint(hrp.Position - Vector3.new(0, 3.5, 0))
-                
+               
                 if onScreen then
                     local height = math.abs(headPos.Y - legPos.Y)
                     local width = height * 0.45
-                    
+                   
                     if toggles.showBoxes.value then
                         data.box.Size = Vector2.new(width, height)
                         data.box.Position = Vector2.new(rootPos.X - width/2, rootPos.Y - height/2)
@@ -630,7 +640,7 @@ RunService.RenderStepped:Connect(function()
                     else
                         data.box.Visible = false
                     end
-                    
+                   
                     if toggles.showTracers.value then
                         data.tracer.From = Vector2.new(Cam.ViewportSize.X / 2, Cam.ViewportSize.Y)
                         data.tracer.To = Vector2.new(rootPos.X, rootPos.Y)
@@ -638,7 +648,7 @@ RunService.RenderStepped:Connect(function()
                     else
                         data.tracer.Visible = false
                     end
-                    
+                   
                     if toggles.showNames.value then
                         data.name.Text = plr.Name
                         data.name.Position = Vector2.new(rootPos.X, rootPos.Y - height/2 - 18)
@@ -646,9 +656,9 @@ RunService.RenderStepped:Connect(function()
                     else
                         data.name.Visible = false
                     end
-                    
+                   
                     if toggles.showDistance.value then
-                        local distance = (player.Character and player.Character:FindFirstChild("HumanoidRootPart")) and 
+                        local distance = (player.Character and player.Character:FindFirstChild("HumanoidRootPart")) and
                             (player.Character.HumanoidRootPart.Position - hrp.Position).Magnitude or 0
                         data.dist.Text = math.floor(distance) .. " studs"
                         data.dist.Position = Vector2.new(rootPos.X, rootPos.Y + height/2 + 2)
@@ -678,3 +688,4 @@ RunService.RenderStepped:Connect(function()
 end)
 
 print("💀 ESP loaded in secondary tab!")
+print("💀 Menu minimizável adicionado! Use H ou clique na caveira.")
